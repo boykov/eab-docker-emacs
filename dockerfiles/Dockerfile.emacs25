@@ -1,7 +1,7 @@
-ARG VERSION=latest
+ARG VERSION=14.04
 FROM ubuntu:$VERSION
 
-MAINTAINER JAremko <w3techplaygound@gmail.com>
+MAINTAINER eab <artscan@list.ru>
 
 # Fix "Couldn't register with accessibility bus" error message
 ENV NO_AT_BRIDGE=1
@@ -23,6 +23,18 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     sudo \
     tar \
     unzip \
+    expect \
+    tmux \
+    python \
+    python-pip \
+    openvpn \
+    curl \
+    man \
+    supervisor \
+    strace \
+    lsof \
+    openssh-server \
+    wget \
 # su-exec
     && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
     && cd /tmp/su-exec \
@@ -34,18 +46,62 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get autoremove \
     && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
-COPY asEnvUser /usr/local/sbin/
+# ^^^^^^^ Those layers are shared ^^^^^^^
+
+# Emacs
+RUN apt-get update \
+    && apt-get install software-properties-common \
+    && add-apt-repository ppa:kelleyk/emacs \
+    && add-apt-repository ppa:git-core/ppa \
+    && apt-get update \
+    && apt-get install git \
+    && apt-get install emacs25
+# Cleanup
+    # && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
+
+RUN locale-gen ru_RU && locale-gen ru_RU.UTF-8 && update-locale LANG=ru_RU.UTF-8 && dpkg-reconfigure locales
+
+# sync.py
+
+RUN sudo apt-get install python-dev  \
+     build-essential libssl-dev libffi-dev \
+     libxml2-dev libxslt1-dev zlib1g-dev \
+     python-pip
+
+RUN apt-get install libffi-dev libssl-dev
+
+RUN pip install -U pip==7.1.0
+RUN pip install -U pyopenssl==0.13.1 pyasn1 ndg-httpsclient
+RUN pip install atlassian-python-api
+RUN pip install setuptools --upgrade
+RUN pip install cryptography==2.2.2
+RUN pip install jira
+RUN pip install BeautifulSoup
+RUN pip install requests[security]
+
+RUN pip install ansible
+RUN pip install virtualenv
+RUN pip install virtualenvwrapper
+
+RUN apt-get install wget
+RUN apt-get install libxml2-utils
+RUN git clone git://github.com/bartman/git-wip.git && cp git-wip/git-wip /usr/bin
+RUN apt-get install psmisc
+
+RUN mkdir /var/run/sshd
+
+COPY dockerfiles/asEnvUser /usr/local/sbin/
 
 # Only for sudoers
 RUN chown root /usr/local/sbin/asEnvUser \
     && chmod 700  /usr/local/sbin/asEnvUser
 
-# ^^^^^^^ Those layers are shared ^^^^^^^
 
-# Emacs
-RUN apt-get update && apt-get install emacs25 \
-# Cleanup
-    && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
+# Supervisor Config
+COPY ./config/supervisor/supervisord.conf /etc/supervisord.conf
+# Start Supervisord
+COPY ./config/cmd.sh /
+RUN chmod 755 /cmd.sh
 
 ENV UNAME="emacser" \
     GNAME="emacs" \
@@ -58,4 +114,4 @@ ENV UNAME="emacser" \
 WORKDIR "${WORKSPACE}"
 
 ENTRYPOINT ["asEnvUser"]
-CMD ["bash", "-c", "emacs; /bin/bash"]
+CMD ["bash", "-c", "/cmd.sh"]
