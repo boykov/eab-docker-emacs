@@ -15,8 +15,12 @@ docker run \
 -v /home/eab/.ansible:/home/eab/.ansible \
 -v /home/eab/.ssh:/home/eab/.ssh \
 -v /home/eab/.eev:/home/eab/.eev \
+-v /home/eab/.virtualenvs:/home/eab/.virtualenvs \
+-v /home/eab/.vault_pass:/home/eab/.vault_pass \
 -v /home/eab/Mail:/home/eab/Mail \
 -v /home/eab/git/:/home/eab/git/ \
+-v /home/eab/git/org-chronos:/home/eab/git/org \
+-v /home/eab/git/org:/home/eab/git/org-kairos \
 -v /home/eab/data/gitno/github:/home/eab/data/gitno/github \
 -v /home/eab/.twittering-mode.gpg:/home/eab/.twittering-mode.gpg \
 -v /home/eab/.twittering-modeN.gpg:/home/eab/.twittering-modeN.gpg \
