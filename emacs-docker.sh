@@ -18,8 +18,6 @@ docker run \
 -v /home/eab/Mail:/home/eab/Mail \
 -v /home/eab/git/:/home/eab/git/ \
 -v /home/eab/data/gitno/github:/home/eab/data/gitno/github \
--v /home/eab/newdata/mail:/home/eab/newdata/mail \
--v /home/eab/Dropbox/git/testbed:/home/eab/Dropbox/git/testbed \
 -v /home/eab/.twittering-mode.gpg:/home/eab/.twittering-mode.gpg \
 -v /home/eab/.twittering-modeN.gpg:/home/eab/.twittering-modeN.gpg \
 -v /home/eab/.bashrc:/home/eab/.bashrc \
