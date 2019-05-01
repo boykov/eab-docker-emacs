@@ -8,12 +8,12 @@ docker run \
 -e LC_ALL="en_US.UTF-8" \
 -e TZ="Asia/Vladivostok" \
 -v $('pwd'):/mnt/workspace \
+-v /home/eab/.emacs.d:/home/eab/.emacs.d \
+-v /home/eab/.ssh:/home/eab/.ssh \
 -v /etc/openvpn:/etc/openvpn \
 -v /etc/ssh:/etc/ssh \
 -v /usr/share/emacs/25.3:/usr/share/emacs/25.3 \
--v /home/eab/.emacs.d:/home/eab/.emacs.d \
 -v /home/eab/.ansible:/home/eab/.ansible \
--v /home/eab/.ssh:/home/eab/.ssh \
 -v /home/eab/.eev:/home/eab/.eev \
 -v /home/eab/.virtualenvs:/home/eab/.virtualenvs \
 -v /home/eab/.vault_pass:/home/eab/.vault_pass \
@@ -29,10 +29,10 @@ docker run \
 -v /home/eab/.profile:/home/eab/.profile \
 -v /home/eab/.authinfo:/home/eab/.authinfo \
 -v /home/eab/.gitconfig:/home/eab/.gitconfig \
+-v /tmp/user:/tmp/user \
 -v /etc/localtime:/etc/localtime:ro \
 -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
--v /tmp/user:/tmp/user \
 -e DISPLAY=$DISPLAY \
 -e TERM=xterm-256color \
 --device /dev/console:/dev/console:rw \
