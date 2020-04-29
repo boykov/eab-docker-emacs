@@ -91,6 +91,7 @@ RUN apt-get install psmisc
 RUN mkdir /var/run/sshd
 
 COPY dockerfiles/asEnvUser /usr/local/sbin/
+COPY package-keyring.gpg /usr/share/emacs/25.3/etc/package-keyring.gpg
 
 # Only for sudoers
 RUN chown root /usr/local/sbin/asEnvUser \
