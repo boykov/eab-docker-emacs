@@ -89,6 +89,7 @@ RUN git clone git://github.com/bartman/git-wip.git && cp git-wip/git-wip /usr/bi
 RUN wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep-12.0.1-x86_64-unknown-linux-musl.tar.gz \
     && tar -xvf ripgrep-12.0.1-x86_64-unknown-linux-musl.tar.gz && cp ripgrep-12.0.1-x86_64-unknown-linux-musl/rg /usr/bin
 RUN apt-get install psmisc
+RUN apt-get install jq
 
 RUN mkdir /var/run/sshd
 

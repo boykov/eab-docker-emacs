@@ -7,6 +7,8 @@ see https://github.com/JAremko/docker-emacs
 ssh kairos-host
 cd ~/data/gitno/github/eab-docker-emacs
 docker build -f dockerfiles/Dockerfile.emacs25 -t eab-emacs14 .
+docker build -f dockerfiles/Dockerfile.emacs28 -t eab-emacs28 .
+docker build -f dockerfiles/Dockerfile.andrea -t eab-andrea .
 
 docker rm eab-emacs
 /bin/bash emacs-docker.sh
@@ -32,3 +34,38 @@ sudo apt-get install curl
 echo     ServerAliveInterval 120 >> /etc/ssh/ssh_config
 
 
+## emacs28
+
+ENV LIBRARY_PATH=/install_dir/lib                                          
+ENV LD_LIBRARY_PATH=/install_dir/lib                                       
+ENV PATH=/install_dir/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
+
+PATH=/install_dir/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
+
+sudo apt-get install libtinfo-dev
+sudo apt-get install ncurses-dev
+sudo apt-get install libncurses5-dev
+sudo apt-get remove libncurses5-dev
+sudo apt-get install libncursesw5-dev
+
+ldd /install_dir/bin/emacs | grep libtin
+
+ls /usr/lib/x86_64-linux-gnu/ | grep libtinf
+ls /usr/lib/x86_64-linux-gnu/ | grep libnc
+sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so /usr/lib/x86_64-linux-gnu/libtinfo.so.6
+sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6.1 /usr/lib/x86_64-linux-gnu/libtinfo.so.6
+sudo rm -f /usr/lib/x86_64-linux-gnu/libtinfo.so.6
+
+sudo apt-get install libtinfo-dev=6.1-1ubuntu.1
+LIBRARY_PATH=/install_dir/lib LD_LIBRARY_PATH=/install_dir/lib dcemacs
+dcemacs
+
+docker stop eab-emacs28
+docker rm eab-emacs28
+
+
+
+ssh 172.17.0.3
+export LIBRARY_PATH=/install_dir/lib LD_LIBRARY_PATH=/install_dir/lib                                       
+sudo apt-get update
+sudo apt-get install libjpeg62

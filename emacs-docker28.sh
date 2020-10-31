@@ -1,0 +1,40 @@
+docker run -ti \
+-e UNAME="eab" \
+-e GNAME="eab" \
+-e UID="1000" \
+-e GID="1000" \
+-e UHOME="/home/eab" \
+-e LANG="ru_RU.UTF-8" \
+-e LC_ALL="en_US.UTF-8" \
+-e TZ="Asia/Vladivostok" \
+-v $('pwd'):/mnt/workspace \
+-v /home/eab/.emacs.d:/home/eab/.emacs.d \
+-v /home/eab/.ssh:/home/eab/.ssh \
+-v /home/eab/.ansible:/home/eab/.ansible \
+-v /home/eab/.eev:/home/eab/.eev \
+-v /home/eab/.virtualenvs:/home/eab/.virtualenvs \
+-v /home/eab/.vault_pass:/home/eab/.vault_pass \
+-v /home/eab/Mail:/home/eab/Mail \
+-v /home/eab/git/:/home/eab/git/ \
+-v /home/eab/git/org-chronos:/home/eab/git/org \
+-v /home/eab/git/org:/home/eab/git/org-kairos \
+-v /home/eab/data/gitno/github:/home/eab/data/gitno/github \
+-v /home/eab/.twittering-mode.gpg:/home/eab/.twittering-mode.gpg \
+-v /home/eab/.twittering-modeN.gpg:/home/eab/.twittering-modeN.gpg \
+-v /home/eab/.bashrc:/home/eab/.bashrc \
+-v /home/eab/.bash_history:/home/eab/.bash_history \
+-v /home/eab/.profile:/home/eab/.profile \
+-v /home/eab/.authinfo:/home/eab/.authinfo \
+-v /home/eab/.gitconfig:/home/eab/.gitconfig \
+-v /etc/ssh:/etc/ssh \
+-v /tmp/user:/tmp/user \
+-v /etc/localtime:/etc/localtime:ro \
+-v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+-e DISPLAY=$DISPLAY \
+-e TERM=xterm-256color \
+--device /dev/console:/dev/console:rw \
+--privileged \
+-h chronos \
+--name eab-emacs28 \
+ eab-andrea

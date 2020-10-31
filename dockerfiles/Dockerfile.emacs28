@@ -1,0 +1,124 @@
+ARG VERSION=18.04
+FROM ubuntu:$VERSION
+
+MAINTAINER eab <artscan@list.ru>
+
+COPY install_dir /install_dir
+
+# basic stuff
+RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
+    libmpc3 \
+    libmpfr6 \
+    libgmp10 \
+    coreutils \
+    # libjpe \
+    # g62-turbo \
+    libtiff5 \
+    libgif7 \
+    libxpm4 \
+    libgtk-3-0 \
+    libgnutlsxx28 \
+    libncurses5 \
+    libxml2 \
+    libxt6 \
+    libjansson4 \
+    libcanberra-gtk3-module \
+    libx11-xcb1 \
+    binutils \
+    libc6-dev \
+    bash \
+    build-essential \
+    dbus-x11 \
+    fontconfig \
+    git \
+    gzip \
+    language-pack-en-base \
+    libgl1-mesa-glx \
+    make \
+    sudo \
+    tar \
+    unzip \
+    expect \
+    tmux \
+    python \
+    python-dev \
+    python-pip \
+    openvpn \
+    curl \
+    man \
+    supervisor \
+    strace \
+    lsof \
+    openssh-server \
+    wget \
+# su-exec
+    && git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
+    && cd /tmp/su-exec \
+    && make \
+    && chmod 770 su-exec \
+    && mv ./su-exec /usr/local/sbin/ \
+# git-wip
+    && git clone git://github.com/bartman/git-wip.git && cp git-wip/git-wip /usr/bin \
+# ripgrep
+    && wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep-12.0.1-x86_64-unknown-linux-musl.tar.gz \
+    && tar -xvf ripgrep-12.0.1-x86_64-unknown-linux-musl.tar.gz && cp ripgrep-12.0.1-x86_64-unknown-linux-musl/rg /usr/bin \
+# Cleanup
+    && apt-get purge build-essential \
+    && apt-get autoremove \
+    && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
+
+RUN locale-gen ru_RU && locale-gen ru_RU.UTF-8 && update-locale LANG=ru_RU.UTF-8 && dpkg-reconfigure locales
+
+# sync.py
+
+     # build-essential libssl-dev libffi-dev \
+     # libxml2-dev libxslt1-dev zlib1g-dev \
+
+# RUN apt-get install libffi-dev libssl-dev
+
+# RUN pip install -U pip==7.1.0
+# RUN pip install -U pyopenssl==0.13.1 pyasn1 ndg-httpsclient
+# RUN pip install atlassian-python-api
+# RUN pip install setuptools --upgrade
+# RUN pip install cryptography==2.2.2
+# RUN pip install jira
+# RUN pip install BeautifulSoup
+# RUN pip install requests[security]
+
+# RUN pip install ansible
+# RUN pip install virtualenv
+# RUN pip install virtualenvwrapper
+
+# RUN apt-get install libxml2-utils
+# RUN apt-get install psmisc
+# RUN apt-get install jq
+
+
+RUN mkdir /var/run/sshd
+
+COPY dockerfiles/asEnvUser /usr/local/sbin/
+
+# Only for sudoers
+RUN chown root /usr/local/sbin/asEnvUser \
+    && chmod 700  /usr/local/sbin/asEnvUser
+
+
+# Supervisor Config
+COPY ./config/supervisor/supervisord.conf /etc/supervisord.conf
+# Start Supervisord
+COPY ./config/cmd.sh /
+RUN chmod 755 /cmd.sh
+
+ENV UNAME="emacser" \
+    GNAME="emacs" \
+    UHOME="/home/emacs" \
+    UID="1000" \
+    GID="1000" \
+    WORKSPACE="/mnt/workspace" \
+    SHELL="/bin/bash"
+
+WORKDIR "${WORKSPACE}"
+
+ENTRYPOINT ["asEnvUser"]
+CMD ["bash", "-c", "/cmd.sh"]
