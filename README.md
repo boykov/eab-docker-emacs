@@ -2,6 +2,12 @@
 
 see https://github.com/JAremko/docker-emacs
 
+## apt-get inside virtualenv
+
+https://stackoverflow.com/questions/11441546/how-i-can-make-apt-get-install-to-my-virtualenv
+pip зависимости из моего вспомогательного "слоя" можно попробовать разместить в virtualenv
+а потом использовать их через wrap workon
+
 ## build
 
 ssh kairos-host

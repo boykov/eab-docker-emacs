@@ -1,4 +1,4 @@
-docker run -ti \
+docker run \
 -e UNAME="eab" \
 -e GNAME="eab" \
 -e UID="1000" \
@@ -35,6 +35,6 @@ docker run -ti \
 -e TERM=xterm-256color \
 --device /dev/console:/dev/console:rw \
 --privileged \
--h chronos \
+-h chronos28 \
 --name eab-emacs28 \
- eab-andrea
+ eab-emacs28

@@ -3,30 +3,39 @@ FROM ubuntu:$VERSION
 
 MAINTAINER eab <artscan@list.ru>
 
-COPY install_dir /install_dir
+RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
+    software-properties-common \
+    libxpm-dev \
+    libgif-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libtiff-dev \
+    libx11-dev \
+    libncurses5-dev \
+    automake \
+    autoconf \
+    texinfo \
+    libgtk2.0-dev \
+    && add-apt-repository ppa:ubuntu-toolchain-r/test \
+    && apt-get install \
+    gcc-10 \
+    g++-10 \
+    libgccjit0 \
+    libgccjit-10-dev \
+    libjansson4 \
+    libjansson-dev
+
+RUN apt-get install libgnutls28-dev
+
+COPY emacs /emacs
+COPY build.sh /emacs/build.sh
+
+RUN cd /emacs && chmod +x build.sh && sleep 1 && ./build.sh
 
 # basic stuff
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
-    libmpc3 \
-    libmpfr6 \
-    libgmp10 \
-    coreutils \
-    # libjpe \
-    # g62-turbo \
-    libtiff5 \
-    libgif7 \
-    libxpm4 \
-    libgtk-3-0 \
-    libgnutlsxx28 \
-    libncurses5 \
-    libxml2 \
-    libxt6 \
-    libjansson4 \
-    libcanberra-gtk3-module \
-    libx11-xcb1 \
-    binutils \
-    libc6-dev \
     bash \
     build-essential \
     dbus-x11 \
@@ -68,7 +77,15 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get autoremove \
     && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
-RUN locale-gen ru_RU && locale-gen ru_RU.UTF-8 && update-locale LANG=ru_RU.UTF-8 && dpkg-reconfigure locales
+COPY ru_RU /usr/share/i18n/locales/ru_RU
+
+RUN rm -rf /emacs
+
+RUN locale-gen ru_RU && locale-gen ru_RU.UTF-8 && update-locale LANG=ru_RU.UTF-8 && dpkg-reconfigure --frontend noninteractive locales
+
+# for vterm, magit-libgit
+RUN apt-get install g++ libtool-bin libssl-dev
+RUN pip install cmake
 
 # sync.py
 
@@ -77,22 +94,30 @@ RUN locale-gen ru_RU && locale-gen ru_RU.UTF-8 && update-locale LANG=ru_RU.UTF-8
 
 # RUN apt-get install libffi-dev libssl-dev
 
-# RUN pip install -U pip==7.1.0
-# RUN pip install -U pyopenssl==0.13.1 pyasn1 ndg-httpsclient
-# RUN pip install atlassian-python-api
-# RUN pip install setuptools --upgrade
-# RUN pip install cryptography==2.2.2
-# RUN pip install jira
-# RUN pip install BeautifulSoup
-# RUN pip install requests[security]
+# apt-get install libssl1.0.0
+# apt-get install libssl1.0-dev
 
-# RUN pip install ansible
-# RUN pip install virtualenv
-# RUN pip install virtualenvwrapper
+# sudo bash
+# pip install -U pip==7.1.0
+# pip install -U pyasn1 ndg-httpsclient
+# pip install pyopenssl==19.0.0
+# pip install atlassian-python-api
+# pip install setuptools==41.0.0
+# pip install cryptography==2.2.2
+# pip install jira
+# pip install BeautifulSoup==3.2.1
+# pip install requests[security]==2.21.0
+# pip install idna
 
-# RUN apt-get install libxml2-utils
-# RUN apt-get install psmisc
-# RUN apt-get install jq
+# pip list installed 
+
+# pip install ansible
+# pip install virtualenv
+# pip install virtualenvwrapper
+
+# apt-get install libxml2-utils
+# apt-get install psmisc
+# apt-get install jq
 
 
 RUN mkdir /var/run/sshd
