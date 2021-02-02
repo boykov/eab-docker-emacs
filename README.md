@@ -8,6 +8,11 @@ https://stackoverflow.com/questions/11441546/how-i-can-make-apt-get-install-to-m
 pip зависимости из моего вспомогательного "слоя" можно попробовать разместить в virtualenv
 а потом использовать их через wrap workon
 
+## compose
+
+docker-compose -f clocksum-compose.yml up -d
+docker-compose -f clocksum-compose.yml down
+
 ## build
 
 ssh kairos-host

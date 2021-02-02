@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  clocksum-28:
+    image: eab-emacs28
+    container_name: clocksum-28
+    hostname: clocksum-28
+    privileged: true
+    network_mode: bridge
+    volumes:
+      - /home/eab/.ssh:/home/eab/.ssh
+      - /home/eab/.emacs.d:/home/eab/.emacs.d
+      - /home/eab/git/:/home/eab/git/
+      - /home/eab/pub/org/:/home/eab/pub/org/
+      - /home/eab/data/gitno/github:/home/eab/data/gitno/github
+      - /home/eab/.bashrc:/home/eab/.bashrc
+      - /home/eab/.profile:/home/eab/.profile
+      - /etc/ssh:/etc/ssh
+      - /tmp/user:/tmp/user
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - 'UNAME=eab'
+      - 'GNAME=eab'
+      - 'UID=1000'
+      - 'GID=1000'
+      - 'UHOME=/home/eab'
+      - 'LANG=ru_RU.UTF-8'
+      - 'LC_ALL=en_US.UTF-8'
+      - 'TZ=Asia/Vladivostok'
+      - 'DISPLAY=$DISPLAY'
+      - 'TERM=xterm-256color'
+    devices:
+      - "/dev/console:/dev/console:rw"
