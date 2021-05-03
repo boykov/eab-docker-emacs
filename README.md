@@ -2,6 +2,10 @@
 
 see https://github.com/JAremko/docker-emacs
 
+## TODO Source Code Pro fonts for emacs GUI
+
+https://www.rogerpence.com/posts/install-source-code-pro-font-on-ubuntu
+
 ## apt-get inside virtualenv
 
 https://stackoverflow.com/questions/11441546/how-i-can-make-apt-get-install-to-my-virtualenv
@@ -77,6 +81,6 @@ docker rm eab-emacs28
 
 
 ssh 172.17.0.3
-export LIBRARY_PATH=/install_dir/lib LD_LIBRARY_PATH=/install_dir/lib                                       
+export LIBRARY_PATH=/install_dir/lib LD_LIBRARY_PATH=/install_dir/lib
 sudo apt-get update
 sudo apt-get install libjpeg62
