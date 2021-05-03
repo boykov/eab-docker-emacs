@@ -2,6 +2,10 @@
 
 see https://github.com/JAremko/docker-emacs
 
+## TODO man
+
+https://stackoverflow.com/questions/54152906/how-to-install-man-pages-on-an-ubuntu-docker-image
+
 ## TODO Source Code Pro fonts for emacs GUI
 
 https://www.rogerpence.com/posts/install-source-code-pro-font-on-ubuntu
