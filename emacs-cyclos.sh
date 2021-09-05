@@ -8,18 +8,13 @@ docker run \
 -e LC_ALL="en_US.UTF-8" \
 -e TZ="Asia/Vladivostok" \
 -v $('pwd'):/mnt/workspace \
--v /home/eab/data:/mnt/data \
--v /home/eab/git:/mnt/git \
--v /home/eab/pnt:/home/eab/pnt \
--v /home/eab/.bashrc:/home/eab/.bashrc \
 -v /home/eab/.emacs.d:/home/eab/.emacs.d \
--v /home/eab/.ssh:/home/eab/.ssh \
 -v /etc/localtime:/etc/localtime:ro \
 -v /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 -e DISPLAY=$DISPLAY \
 --device /dev/console:/dev/console:rw \
 --privileged \
--h emacs-chronos \
---name eab-emacs-chronos \
+-h emacs-cyclos \
+--name eab-emacs-cyclos \
  eab-emacs28

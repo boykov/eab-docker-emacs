@@ -10,11 +10,20 @@ https://stackoverflow.com/questions/54152906/how-to-install-man-pages-on-an-ubun
 
 https://www.rogerpence.com/posts/install-source-code-pro-font-on-ubuntu
 
-## apt-get inside virtualenv
+## TODO apt-get inside virtualenv
 
 https://stackoverflow.com/questions/11441546/how-i-can-make-apt-get-install-to-my-virtualenv
 pip зависимости из моего вспомогательного "слоя" можно попробовать разместить в virtualenv
 а потом использовать их через wrap workon
+
+С новой версией ubuntu появилась новая версия python, с проблемами
+совместимости с протестированным в Dockerfile.emacs25 слоем.
+Нужно сделать virtualenv со старой версией python?
+https://stackoverflow.com/questions/14591579/how-to-isolate-virtualenv-from-local-dist-packages
+
+Похоже, дело не только в версии питона, а еще и в других библиотеках,
+например ssl, устанавливаемых через apt. Значит, надо запускать
+подобные слои через контейнер? но это будет docker inside docker? или podman
 
 ## compose
 
@@ -88,3 +97,14 @@ ssh 172.17.0.3
 export LIBRARY_PATH=/install_dir/lib LD_LIBRARY_PATH=/install_dir/lib
 sudo apt-get update
 sudo apt-get install libjpeg62
+
+## additional
+
+apt-get install bc
+
+apt install cmake
+apt install build-essential
+apt install libssl-dev
+apt install ispell
+
+pip3 install gitlabber
