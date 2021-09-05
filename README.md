@@ -28,6 +28,8 @@ https://stackoverflow.com/questions/14591579/how-to-isolate-virtualenv-from-loca
 ## compose
 
 docker-compose -f clocksum-compose.yml up -d
+docker-compose -f eab-emacs28-compose.yml up -d
+docker-compose -f eab-emacs-compose.yml up -d
 docker-compose -f clocksum-compose.yml down
 
 ## build
@@ -100,6 +102,7 @@ sudo apt-get install libjpeg62
 
 ## additional
 
+apt-get update
 apt-get install bc
 
 apt install cmake

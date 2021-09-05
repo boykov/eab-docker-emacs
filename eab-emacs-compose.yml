@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+  eab-emacs:
+    image: eab-emacs14
+    container_name: eab-emacs
+    hostname: chronos
+    privileged: true
+    network_mode: bridge
+    volumes:
+      - /home/eab/data/gitno/github/eab-docker-emacs/:/mnt/workspace
+      - /home/eab/.emacs.d:/home/eab/.emacs.d
+      - /home/eab/.ssh:/home/eab/.ssh
+      - /etc/openvpn:/etc/openvpn
+      - /etc/ssh:/etc/ssh
+      - /usr/share/emacs/25.3:/usr/share/emacs/25.3
+      - /home/eab/.ansible:/home/eab/.ansible
+      - /home/eab/.eev:/home/eab/.eev
+      - /home/eab/.virtualenvs:/home/eab/.virtualenvs
+      - /home/eab/.vault_pass:/home/eab/.vault_pass
+      - /home/eab/Mail:/home/eab/Mail
+      - /home/eab/git/:/home/eab/git/
+      - /home/eab/git/org-chronos:/home/eab/git/org
+      - /home/eab/data/gitno/github:/home/eab/data/gitno/github
+      - /home/eab/.twittering-mode.gpg:/home/eab/.twittering-mode.gpg
+      - /home/eab/.twittering-modeN.gpg:/home/eab/.twittering-modeN.gpg
+      - /home/eab/.bashrc:/home/eab/.bashrc
+      - /home/eab/.bash_history:/home/eab/.bash_history
+      - /home/eab/.profile:/home/eab/.profile
+      - /home/eab/.authinfo:/home/eab/.authinfo
+      - /home/eab/.gitconfig:/home/eab/.gitconfig
+      - /tmp/user:/tmp/user
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - 'UNAME=eab'
+      - 'GNAME=eab'
+      - 'UID=1000'
+      - 'GID=1000'
+      - 'UHOME=/home/eab'
+      - 'LANG=ru_RU.UTF-8'
+      - 'LC_ALL=en_US.UTF-8'
+      - 'TZ=Asia/Vladivostok'
+      - 'DISPLAY=$DISPLAY'
+      - 'TERM=xterm-256color'
+    devices:
+      - "/dev/console:/dev/console:rw"

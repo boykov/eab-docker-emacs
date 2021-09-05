@@ -1,21 +1,32 @@
 version: '2'
 
 services:
-  clocksum-28:
+  eab-emacs28:
     image: eab-emacs28
-    container_name: clocksum-28
-    hostname: clocksum-28
+    container_name: eab-emacs28
+    hostname: chronos28
     privileged: true
     network_mode: bridge
     volumes:
-      - /home/eab/.ssh:/home/eab/.ssh
+      - /home/eab/data/gitno/github/eab-docker-emacs/:/mnt/workspace
       - /home/eab/.emacs.d:/home/eab/.emacs.d
+      - /home/eab/.ssh:/home/eab/.ssh
+      - /home/eab/.ansible:/home/eab/.ansible
+      - /home/eab/.eev:/home/eab/.eev
+      - /home/eab/.virtualenvs:/home/eab/.virtualenvs
+      - /home/eab/.vault_pass:/home/eab/.vault_pass
+      - /home/eab/Mail:/home/eab/Mail
       - /home/eab/git/:/home/eab/git/
-      - /home/eab/pub/org/:/home/eab/pub/org/
+      - /home/eab/git/org-chronos:/home/eab/git/org
       - /home/eab/data:/home/eab/data
       - /home/eab/newdata:/home/eab/newdata
+      - /home/eab/.twittering-mode.gpg:/home/eab/.twittering-mode.gpg
+      - /home/eab/.twittering-modeN.gpg:/home/eab/.twittering-modeN.gpg
       - /home/eab/.bashrc:/home/eab/.bashrc
+      - /home/eab/.bash_history:/home/eab/.bash_history
       - /home/eab/.profile:/home/eab/.profile
+      - /home/eab/.authinfo:/home/eab/.authinfo
+      - /home/eab/.gitconfig:/home/eab/.gitconfig
       - /etc/ssh:/etc/ssh
       - /tmp/user:/tmp/user
       - /etc/localtime:/etc/localtime:ro
