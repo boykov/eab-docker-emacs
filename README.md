@@ -111,3 +111,7 @@ apt install libssl-dev
 apt install ispell
 
 pip3 install gitlabber
+sudo pip install ansible
+
+cat ~/.gnupg/gpg.conf
+ignore-mdc-error
