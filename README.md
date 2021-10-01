@@ -109,6 +109,7 @@ apt install cmake
 apt install build-essential
 apt install libssl-dev
 apt install ispell
+apt install xterm (for org :session)
 
 pip3 install gitlabber
 sudo pip install ansible
