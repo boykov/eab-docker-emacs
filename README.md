@@ -110,6 +110,7 @@ apt install build-essential
 apt install libssl-dev
 apt install ispell
 apt install xterm (for org :session)
+apt install graphviz
 
 pip3 install gitlabber
 sudo pip install ansible
