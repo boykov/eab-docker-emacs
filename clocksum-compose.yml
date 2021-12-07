@@ -2,7 +2,7 @@ version: '2'
 
 services:
   clocksum-28:
-    image: eab-emacs28
+    image: harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.1
     container_name: clocksum-28
     hostname: clocksum-28
     privileged: true

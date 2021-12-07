@@ -117,3 +117,14 @@ sudo pip install ansible
 
 cat ~/.gnupg/gpg.conf
 ignore-mdc-error
+
+
+<!-- dictionary -->
+apt-get install dictd
+cd /usr/share/dictd
+sudo /home/eab/git/auto/downdict.sh
+sudo dictdconfig -w
+dict -I
+sudo /etc/init.d/dictd stop
+sudo /etc/init.d/dictd start
+
