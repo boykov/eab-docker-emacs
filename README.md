@@ -32,6 +32,8 @@ docker-compose -f eab-emacs28-compose.yml up -d
 docker-compose -f eab-emacs-compose.yml up -d
 docker-compose -f clocksum-compose.yml down
 
+docker-compose -f emacs28.0.90-compose.yml up -d
+
 ## build
 
 ssh kairos-host
@@ -39,6 +41,8 @@ cd ~/data/gitno/github/eab-docker-emacs
 docker build -f dockerfiles/Dockerfile.emacs25 -t eab-emacs14 .
 docker build -f dockerfiles/Dockerfile.emacs28 -t eab-emacs28 .
 docker build -f dockerfiles/Dockerfile.andrea -t eab-andrea .
+
+docker build -f dockerfiles/Dockerfile.emacs28.0.90 -t harbor.homew.keenetic.pro/eab/emacs28.0.90:0.0.1 .
 
 docker rm eab-emacs
 /bin/bash emacs-docker.sh
@@ -66,11 +70,11 @@ echo     ServerAliveInterval 120 >> /etc/ssh/ssh_config
 
 ## emacs28
 
-ENV LIBRARY_PATH=/install_dir/lib                                          
-ENV LD_LIBRARY_PATH=/install_dir/lib                                       
-ENV PATH=/install_dir/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
+ENV LIBRARY_PATH=/install_dir/lib
+ENV LD_LIBRARY_PATH=/install_dir/lib
+ENV PATH=/install_dir/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-PATH=/install_dir/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin 
+PATH=/install_dir/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 sudo apt-get install libtinfo-dev
 sudo apt-get install ncurses-dev
@@ -128,3 +132,5 @@ dict -I
 sudo /etc/init.d/dictd stop
 sudo /etc/init.d/dictd start
 
+
+copy ~/.eev folder
