@@ -1,19 +1,30 @@
-version: '2'
+version: '3.2'
 
 services:
-  emacs28.0.90:
-    image: harbor.homew.keenetic.pro/eab/emacs28.0.90:0.0.1
-    container_name: emacs28.0.90
-    hostname: emacs28.0.90
+  eab-emacs28.0.90:
+    image: harbor.homew.keenetic.pro/eab/emacs28.0.90:0.0.2
+    container_name: eab-emacs28.0.90
+    hostname: chronos28.0.90
     privileged: true
     network_mode: bridge
     volumes:
+      - type: volume
+        source: pnt
+        target: /home/eab/pnt
+        volume:
+          nocopy: true
       - /home/eab/data/gitno/github/eab-docker-emacs/:/mnt/workspace
+      - /home/eab/.emacs.d:/home/eab/.emacs.d
       - /home/eab/.ssh:/home/eab/.ssh
       - /home/eab/git/:/home/eab/git/
+      - /home/eab/git/org-chronos:/home/eab/git/org
+      - /home/eab/data:/home/eab/data
+      - /home/eab/newdata:/home/eab/newdata
       - /home/eab/.bashrc:/home/eab/.bashrc
       - /home/eab/.bash_history:/home/eab/.bash_history
       - /home/eab/.profile:/home/eab/.profile
+      - /home/eab/.authinfo:/home/eab/.authinfo
+      - /home/eab/.gitconfig:/home/eab/.gitconfig
       - /etc/ssh:/etc/ssh
       - /tmp/user:/tmp/user
       - /etc/localtime:/etc/localtime:ro
@@ -32,3 +43,9 @@ services:
       - 'TERM=xterm-256color'
     devices:
       - "/dev/console:/dev/console:rw"
+volumes:
+  pnt:
+    driver_opts:
+      type: "nfs"
+      o: "addr=192.168.2.18,soft"
+      device: ":/home/eab/pnt"

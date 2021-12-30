@@ -77,6 +77,47 @@ COPY build.sh /emacs/build.sh
 RUN cd /emacs && chmod +x build.sh && sleep 1 && ./build.sh
 RUN rm -rf /emacs
 
+
+COPY ru_RU /usr/share/i18n/locales/ru_RU
+RUN locale-gen ru_RU && locale-gen ru_RU.UTF-8 && update-locale LANG=ru_RU.UTF-8 && dpkg-reconfigure --frontend noninteractive locales
+
+
+# basic stuff
+RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
+    bc \
+    cmake \
+    build-essential \
+    ispell \
+    xterm \
+    graphviz \
+    ansible \
+    dictd \
+    libtool-bin \
+    libssl-dev \
+# Cleanup
+    && apt-get autoremove \
+    && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
+
+RUN pip3 install cmake gitlabber
+
+COPY dictd/ /usr/share/dictd/
+RUN dictdconfig -w
+RUN dict -I
+
+RUN mkdir /RNTM
+COPY gpg.conf /RNTM/gpg.conf
+COPY .eev /RNTM/.eev
+COPY browser-remote /usr/local/bin/browser-remote
+RUN chmod +x /usr/local/bin/browser-remote
+
+RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
+    ghostscript \
+# ripgrep
+    && wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz \
+    && tar -xvf ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz && cp -f ripgrep-13.0.0-x86_64-unknown-linux-musl/rg /usr/bin
+
 RUN mkdir /var/run/sshd
 
 COPY dockerfiles/asEnvUser /usr/local/sbin/

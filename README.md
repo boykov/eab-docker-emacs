@@ -33,16 +33,17 @@ docker-compose -f eab-emacs-compose.yml up -d
 docker-compose -f clocksum-compose.yml down
 
 docker-compose -f emacs28.0.90-compose.yml up -d
+docker-compose -f eab-emacs28.0.90-compose.yml up -d
 
 ## build
 
-ssh kairos-host
+ssh chronos
 cd ~/data/gitno/github/eab-docker-emacs
 docker build -f dockerfiles/Dockerfile.emacs25 -t eab-emacs14 .
 docker build -f dockerfiles/Dockerfile.emacs28 -t eab-emacs28 .
 docker build -f dockerfiles/Dockerfile.andrea -t eab-andrea .
 
-docker build -f dockerfiles/Dockerfile.emacs28.0.90 -t harbor.homew.keenetic.pro/eab/emacs28.0.90:0.0.1 .
+docker build -f dockerfiles/Dockerfile.emacs28.0.90 -t harbor.homew.keenetic.pro/eab/emacs28.0.90:0.0.2 .
 
 docker rm eab-emacs
 /bin/bash emacs-docker.sh
@@ -104,7 +105,7 @@ export LIBRARY_PATH=/install_dir/lib LD_LIBRARY_PATH=/install_dir/lib
 sudo apt-get update
 sudo apt-get install libjpeg62
 
-## additional
+## DONE
 
 apt-get update
 apt-get install bc
@@ -117,7 +118,7 @@ apt install xterm (for org :session)
 apt install graphviz
 
 pip3 install gitlabber
-sudo pip install ansible
+sudo apt install ansible
 
 cat ~/.gnupg/gpg.conf
 ignore-mdc-error
@@ -132,5 +133,7 @@ dict -I
 sudo /etc/init.d/dictd stop
 sudo /etc/init.d/dictd start
 
-
 copy ~/.eev folder
+
+## additional
+
