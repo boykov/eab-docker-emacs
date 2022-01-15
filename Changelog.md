@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.0.3
+
+Add `EDAEMON` parameter. Fix `/tmp/user/$UID`. Fix `nolock` for nfs volume.
+
 ### 0.0.2
 
 Emacs version up to `Dockerfile.emacs28.0.90` (`--with-native-compilation`).

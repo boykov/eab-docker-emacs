@@ -1,9 +1,9 @@
 version: '2'
 
 services:
-  eab-emacs28:
+  eab-emacs28.bak:
     image: harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.1
-    container_name: eab-emacs28
+    container_name: eab-emacs28.bak
     hostname: chronos28
     privileged: true
     network_mode: bridge

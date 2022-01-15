@@ -6,6 +6,7 @@ services:
     container_name: clocksum-28
     hostname: clocksum-28
     privileged: true
+    restart: always
     network_mode: bridge
     volumes:
       - /home/eab/.ssh:/home/eab/.ssh
@@ -15,6 +16,7 @@ services:
       - /home/eab/data:/home/eab/data
       - /home/eab/newdata:/home/eab/newdata
       - /home/eab/.bashrc:/home/eab/.bashrc
+      - /home/eab/.bash_history:/home/eab/.bash_history
       - /home/eab/.profile:/home/eab/.profile
       - /etc/ssh:/etc/ssh
       - /tmp/user:/tmp/user
@@ -32,5 +34,6 @@ services:
       - 'TZ=Asia/Vladivostok'
       - 'DISPLAY=$DISPLAY'
       - 'TERM=xterm-256color'
+      - 'EDAEMON=serverC'
     devices:
       - "/dev/console:/dev/console:rw"

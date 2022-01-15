@@ -32,8 +32,15 @@ docker-compose -f eab-emacs28-compose.yml up -d
 docker-compose -f eab-emacs-compose.yml up -d
 docker-compose -f clocksum-compose.yml down
 
+sudo docker exec -u eab clocksum-28 emacsclient -s /tmp/user/1000/emacs1000/serverC -c -d $DISPLAY
+
+
 docker-compose -f emacs28.0.90-compose.yml up -d
+
+docker-compose -f eab-emacs28.0.90-compose.yml down
 docker-compose -f eab-emacs28.0.90-compose.yml up -d
+
+sudo docker exec -u eab eab-emacs28 emacsclient -s /tmp/user/1000/emacs1000/serverP -c -d $DISPLAY --eval '(load "~/git/auto/eab.el")'
 
 ## build
 
@@ -43,7 +50,8 @@ docker build -f dockerfiles/Dockerfile.emacs25 -t eab-emacs14 .
 docker build -f dockerfiles/Dockerfile.emacs28 -t eab-emacs28 .
 docker build -f dockerfiles/Dockerfile.andrea -t eab-andrea .
 
-docker build -f dockerfiles/Dockerfile.emacs28.0.90 -t harbor.homew.keenetic.pro/eab/emacs28.0.90:0.0.2 .
+docker build -f dockerfiles/Dockerfile.emacs28.0.90 -t harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.1 .
+sudo docker push harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.1
 
 docker rm eab-emacs
 /bin/bash emacs-docker.sh

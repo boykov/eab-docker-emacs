@@ -139,6 +139,7 @@ ENV UNAME="emacser" \
     UID="1000" \
     GID="1000" \
     WORKSPACE="/mnt/workspace" \
+    EDAEMON="server" \
     SHELL="/bin/bash"
 
 WORKDIR "${WORKSPACE}"

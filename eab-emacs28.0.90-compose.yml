@@ -1,11 +1,12 @@
 version: '3.2'
 
 services:
-  eab-emacs28.0.90:
-    image: harbor.homew.keenetic.pro/eab/emacs28.0.90:0.0.2
-    container_name: eab-emacs28.0.90
-    hostname: chronos28.0.90
+  eab-emacs28:
+    image: harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.1
+    container_name: eab-emacs28
+    hostname: chronos28
     privileged: true
+    restart: always
     network_mode: bridge
     volumes:
       - type: volume
@@ -41,11 +42,12 @@ services:
       - 'TZ=Asia/Vladivostok'
       - 'DISPLAY=$DISPLAY'
       - 'TERM=xterm-256color'
+      - 'EDAEMON=serverP'
     devices:
       - "/dev/console:/dev/console:rw"
 volumes:
   pnt:
     driver_opts:
       type: "nfs"
-      o: "addr=192.168.2.18,soft"
+      o: "addr=192.168.2.18,soft,nolock"
       device: ":/home/eab/pnt"
