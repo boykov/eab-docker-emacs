@@ -2,17 +2,21 @@ version: '2'
 
 services:
   clocksum-28:
-    image: harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.1
+    image: harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.2
     container_name: clocksum-28
     hostname: clocksum-28
     privileged: true
     restart: always
     network_mode: bridge
     volumes:
+      - type: volume
+        source: eab-pnt
+        target: /home/eab/pnt
+        volume:
+          nocopy: true
       - /home/eab/.ssh:/home/eab/.ssh
       - /home/eab/.emacs.d:/home/eab/.emacs.d
       - /home/eab/git/:/home/eab/git/
-      - /home/eab/pub/org/:/home/eab/pub/org/
       - /home/eab/data:/home/eab/data
       - /home/eab/newdata:/home/eab/newdata
       - /home/eab/.bashrc:/home/eab/.bashrc
@@ -37,3 +41,6 @@ services:
       - 'EDAEMON=serverC'
     devices:
       - "/dev/console:/dev/console:rw"
+volumes:
+  eab-pnt:
+    external: true

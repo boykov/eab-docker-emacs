@@ -50,8 +50,8 @@ docker build -f dockerfiles/Dockerfile.emacs25 -t eab-emacs14 .
 docker build -f dockerfiles/Dockerfile.emacs28 -t eab-emacs28 .
 docker build -f dockerfiles/Dockerfile.andrea -t eab-andrea .
 
-docker build -f dockerfiles/Dockerfile.emacs28.0.90 -t harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.1 .
-sudo docker push harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.1
+docker build -f dockerfiles/Dockerfile.emacs28.1 -t harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.2 .
+docker push harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.2
 
 docker rm eab-emacs
 /bin/bash emacs-docker.sh
@@ -143,5 +143,36 @@ sudo /etc/init.d/dictd start
 
 copy ~/.eev folder
 
+rebuild emacs with librsvg2-dev
+also may be with
+[x] libacl1-dev
+[x] libncurses-dev
+[ ] libgtk-3-dev
+configure: WARNING: Your version of Gtk+ will have problems with
+       closing open displays.  This is no problem if you just use
+       one display, but if you use more than one and close one of them
+       Emacs may crash.
+       See https://gitlab.gnome.org/GNOME/gtk/issues/221
+[ ] libxaw3dxft6
+[x] librsvg2-dev
+[x] imagemagick
+[ ] libgpm-dev
+[x] libdbus-1-dev
+[ ] libgconf-2-4
+[ ] libm17n-dev
+[x] libotf-dev
+
+host:
+gnuplot
+emacs-bin-common (for emacsclient)
+
 ## additional
 
+TODO +svg java ditaa
+wget https://github.com/stathissideris/ditaa/releases/download/v0.11.0/ditaa-0.11.0-standalone.jar
+
+
+TODO duplicate settings cmd.sh and .bashrc
+TMPDIR, ~/.ssh/tramp, ~/git/auto
+
+TODO to stabilize current build; separated compiled emacs image

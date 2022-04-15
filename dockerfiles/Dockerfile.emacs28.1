@@ -6,6 +6,11 @@ MAINTAINER eab <artscan@list.ru>
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
     software-properties-common \
+    libacl1-dev \
+    librsvg2-dev \
+    imagemagick \
+    libdbus-1-dev \
+    libotf-dev \
     libxpm-dev \
     libgif-dev \
     libjpeg-dev \
@@ -63,16 +68,16 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && chmod 770 su-exec \
     && mv ./su-exec /usr/local/sbin/ \
 # git-wip
-    && git clone git://github.com/bartman/git-wip.git && cp git-wip/git-wip /usr/bin \
+    && git clone https://github.com/bartman/git-wip.git && cp git-wip/git-wip /usr/bin \
 # ripgrep
-    && wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep-12.0.1-x86_64-unknown-linux-musl.tar.gz \
-    && tar -xvf ripgrep-12.0.1-x86_64-unknown-linux-musl.tar.gz && cp ripgrep-12.0.1-x86_64-unknown-linux-musl/rg /usr/bin \
+    && wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz \
+    && tar -xvf ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz && cp -f ripgrep-13.0.0-x86_64-unknown-linux-musl/rg /usr/bin \
 # Cleanup
     && apt-get purge build-essential \
     && apt-get autoremove \
     && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
-COPY emacs-28.0.90 /emacs
+COPY emacs-28.1 /emacs
 COPY build.sh /emacs/build.sh
 RUN cd /emacs && chmod +x build.sh && sleep 1 && ./build.sh
 RUN rm -rf /emacs
@@ -113,10 +118,7 @@ RUN chmod +x /usr/local/bin/browser-remote
 
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
-    ghostscript \
-# ripgrep
-    && wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz \
-    && tar -xvf ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz && cp -f ripgrep-13.0.0-x86_64-unknown-linux-musl/rg /usr/bin
+    ghostscript
 
 RUN mkdir /var/run/sshd
 

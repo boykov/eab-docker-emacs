@@ -1,5 +1,19 @@
 # Changelog
 
+### 0.0.5
+
+TODO supervisord program:dictd, program:emacs
+
+### 0.0.4
+
+Image `eab-emacs28:0.0.2`.
+
+Leave actual `Dockerfile.emacs28.1` only.
+Rm extra Dockerfile and compose files.
+Add `librsvg2-dev` and others.
+Add `~/pnt/pub` link in `cmd.sh`.
+Use `eab-pnt`.
+
 ### 0.0.3
 
 Add `EDAEMON` parameter. Fix `/tmp/user/$UID`. Fix `nolock` for nfs volume.
