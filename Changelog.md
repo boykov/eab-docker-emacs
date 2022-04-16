@@ -1,8 +1,12 @@
 # Changelog
 
-### 0.0.5
+### 0.0.6
 
 TODO supervisord program:dictd, program:emacs
+
+### 0.0.5
+
+Move compose related stuff to `portal`.
 
 ### 0.0.4
 
