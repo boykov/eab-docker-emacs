@@ -2,7 +2,12 @@
 
 ### 0.0.6
 
-TODO supervisord program:dictd, program:emacs
+Move to `~/git/eabmisc/`.
+Add `sqlite3`, `aspell`, `figlet`, `libcanberra-gtk-module`.
+Improve make speed `-j12`.
+Reorder packages, add `FROM ubuntu-emacs` layer.
+Rm legacy `package-keyring.gpg`.
+Init github workflow for self-hosted runner.
 
 ### 0.0.5
 

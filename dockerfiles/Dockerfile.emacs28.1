@@ -1,5 +1,5 @@
 ARG VERSION=20.04
-FROM ubuntu:$VERSION
+FROM ubuntu:$VERSION as ubuntu-emacs
 
 MAINTAINER eab <artscan@list.ru>
 
@@ -19,6 +19,10 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     libx11-dev \
     libncurses5-dev \
     automake \
+    bash \
+    make \
+    git \
+    build-essential \
     autoconf \
     texinfo \
     libgtk2.0-dev \
@@ -31,22 +35,24 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     libjansson4 \
     libjansson-dev \
     libxml2-dev \
-    supervisor \
-    openssh-server \
     libgnutls28-dev
 
+COPY emacs-28.1 /emacs
+COPY build.sh /emacs/build.sh
+RUN cd /emacs && chmod +x build.sh && sleep 1 && ./build.sh
+RUN rm -rf /emacs
+
+FROM ubuntu-emacs
+
 # basic stuff
-RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
-    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
-    bash \
-    build-essential \
+RUN apt-get install \
+    supervisor \
+    openssh-server \
     dbus-x11 \
     fontconfig \
-    git \
     gzip \
     language-pack-en-base \
     libgl1-mesa-glx \
-    make \
     sudo \
     tar \
     unzip \
@@ -71,28 +77,15 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && git clone https://github.com/bartman/git-wip.git && cp git-wip/git-wip /usr/bin \
 # ripgrep
     && wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz \
-    && tar -xvf ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz && cp -f ripgrep-13.0.0-x86_64-unknown-linux-musl/rg /usr/bin \
-# Cleanup
-    && apt-get purge build-essential \
-    && apt-get autoremove \
-    && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
-
-COPY emacs-28.1 /emacs
-COPY build.sh /emacs/build.sh
-RUN cd /emacs && chmod +x build.sh && sleep 1 && ./build.sh
-RUN rm -rf /emacs
-
+    && tar -xvf ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz && cp -f ripgrep-13.0.0-x86_64-unknown-linux-musl/rg /usr/bin
 
 COPY ru_RU /usr/share/i18n/locales/ru_RU
 RUN locale-gen ru_RU && locale-gen ru_RU.UTF-8 && update-locale LANG=ru_RU.UTF-8 && dpkg-reconfigure --frontend noninteractive locales
 
-
 # basic stuff
-RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
-    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
+RUN apt-get install \
     bc \
     cmake \
-    build-essential \
     ispell \
     xterm \
     graphviz \
@@ -101,6 +94,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     libtool-bin \
     libssl-dev \
 # Cleanup
+    && apt-get purge build-essential \
     && apt-get autoremove \
     && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
@@ -118,7 +112,15 @@ RUN chmod +x /usr/local/bin/browser-remote
 
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
-    ghostscript
+    ghostscript \
+    sqlite3 \
+    aspell \
+    aspell-en \
+    aspell-ru \
+    figlet \
+    libcanberra-gtk-module
+
+RUN ln -s /var/lib/ispell/american.hash /var/lib/ispell/english.hash
 
 RUN mkdir /var/run/sshd
 

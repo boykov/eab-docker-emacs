@@ -28,9 +28,9 @@ https://stackoverflow.com/questions/14591579/how-to-isolate-virtualenv-from-loca
 ## build
 
 ssh chronos
-cd ~/data/gitno/github/eab-docker-emacs
-docker build -f dockerfiles/Dockerfile.emacs28.1 -t harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.2 .
-docker push harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.2
+cd ~/git/eabmisc/eab-docker-emacs
+docker build -f dockerfiles/Dockerfile.emacs28.1 -t harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.4 .
+docker push harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.3
 
 docker rm eab-emacs
 /bin/bash emacs-docker.sh
@@ -145,13 +145,31 @@ host:
 gnuplot
 emacs-bin-common (for emacsclient)
 
-## additional
-
-TODO +svg java ditaa
+CANCELLED +svg java ditaa
 wget https://github.com/stathissideris/ditaa/releases/download/v0.11.0/ditaa-0.11.0-standalone.jar
 
+CANCELLED supervisord program:dictd, program:emacs
+dictd и так через init.d
+для emacs надо прокидывать параметры 
+sudo EDAEMON=$EDAEMON /usr/bin/supervisord -n -c /etc/supervisord.conf &
+%(ENV_DAEMON)s
+и, возможно, все остальные
+Дальше разбираться не стал, т.к. возможны еще другие проблемы.
+
+sudo apt install sqlite3
+sudo apt install aspell
+sudo apt install figlet
+sudo apt install aspell-ru
+sudo apt install libcanberra-gtk-module
+
+cd /usr/lib/ispell
+sudo ln -s /var/lib/ispell/american.hash english.hash
+
+## additional
 
 TODO duplicate settings cmd.sh and .bashrc
 TMPDIR, ~/.ssh/tramp, ~/git/auto
+
+TODO перекомпилировать emacs с поддержкой dbus --with-dbus
 
 TODO to stabilize current build; separated compiled emacs image

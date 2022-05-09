@@ -1,0 +1,17 @@
+name: Greeting from Github
+
+on: push
+  branches:
+    - dev
+
+jobs:
+  eab-job:
+    name: EAB Job
+    runs-on: self-hosted
+    steps:
+      - name: Print a greeting
+        env:
+          MY_VAR: Hi there! My name is
+          FIRST_NAME: EAB
+        run: |
+          echo $MY_VAR $FIRST_NAME.
