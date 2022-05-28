@@ -1,14 +1,20 @@
 name: Greeting from Github
 
-on: push
-  branches:
-    - dev
+on:
+  push:
+    branches:
+      - dev
 
 jobs:
   eab-job:
     name: EAB Job
     runs-on: self-hosted
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@dev
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
       - name: Print a greeting
         env:
           MY_VAR: Hi there! My name is

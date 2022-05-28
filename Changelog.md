@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.0.7
+
+Add `man` pages.
+Fix syntax `push:` and add `actions/checkout` in github workflow.
+
 ### 0.0.6
 
 Move to `~/git/eabmisc/`.
