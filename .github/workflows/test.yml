@@ -12,13 +12,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-          pwd
-      - name: Print a greeting
+      - name: Copy emacs-28.1 and build image
         env:
-          MY_VAR: Hi there! My name is
-          FIRST_NAME: EAB
+          VER: 0.0.5
         run: |
-          echo $MY_VAR $FIRST_NAME.
+          cp -rp ../../emacs-28.1 ./
+          cp -rp ../../dictd ./
+          docker build -f dockerfiles/Dockerfile.emacs28.1 -t harbor.homew.keenetic.pro/eab/eab-emacs28:$VER .
