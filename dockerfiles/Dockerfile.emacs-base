@@ -1,0 +1,60 @@
+ARG UBUNTU_VERSION=20.04
+FROM ubuntu:$UBUNTU_VERSION
+ARG EMACS_VERSION=28.1
+MAINTAINER eab <artscan@list.ru>
+
+RUN apt update \
+    && apt --yes upgrade \
+    && sed -e '\|/usr/share/man|s|^#*|#|g' -i /etc/dpkg/dpkg.cfg.d/excludes \
+    && apt-get install --reinstall $(dpkg -S /usr/share/ | sed 's/,//g' | sed 's/: \/usr\/share//g') \
+    && apt --yes install apt-utils dialog manpages manpages-posix man-db \
+    && rm -f /usr/bin/man \
+    && dpkg-divert --quiet --remove --rename /usr/bin/man
+
+RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
+    software-properties-common \
+    libacl1-dev \
+    librsvg2-dev \
+    imagemagick \
+    libdbus-1-dev \
+    libotf-dev \
+    libxpm-dev \
+    libgif-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libtiff-dev \
+    libx11-dev \
+    libncurses5-dev \
+    automake \
+    bash \
+    make \
+    git \
+    build-essential \
+    autoconf \
+    dictd \
+    texinfo \
+    libgtk2.0-dev \
+    && add-apt-repository ppa:ubuntu-toolchain-r/test \
+    && apt-get install \
+    gcc-10 \
+    g++-10 \
+    libgccjit0 \
+    libgccjit-10-dev \
+    libjansson4 \
+    libjansson-dev \
+    libxml2-dev \
+    libgnutls28-dev
+
+COPY emacs-${EMACS_VERSION} /emacs
+COPY build.sh /emacs/build.sh
+RUN cd /emacs && chmod +x build.sh && sleep 1 && ./build.sh
+RUN rm -rf /emacs
+
+COPY dictd/ /usr/share/dictd/
+RUN dictdconfig -w
+RUN dict -I
+
+RUN mkdir /RNTM
+COPY .eev /RNTM/.eev
+

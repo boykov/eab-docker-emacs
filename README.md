@@ -2,114 +2,31 @@
 
 see https://github.com/JAremko/docker-emacs
 
-## TODO man
+## build eab emacs 
 
-https://stackoverflow.com/questions/54152906/how-to-install-man-pages-on-an-ubuntu-docker-image
+See .github/workflows/test.yml
 
-## TODO Source Code Pro fonts for emacs GUI
+## additional
 
-https://www.rogerpence.com/posts/install-source-code-pro-font-on-ubuntu
+TODO duplicate settings cmd.sh and .bashrc
+TMPDIR, ~/.ssh/tramp, ~/git/auto
 
-## TODO apt-get inside virtualenv
+## CANCELLED apt-get inside virtualenv
 
-https://stackoverflow.com/questions/11441546/how-i-can-make-apt-get-install-to-my-virtualenv
-pip зависимости из моего вспомогательного "слоя" можно попробовать разместить в virtualenv
-а потом использовать их через wrap workon
+See 6a004c96fd7 commit, dockerfiles/Dockerfile.emacs28
 
-С новой версией ubuntu появилась новая версия python, с проблемами
-совместимости с протестированным в Dockerfile.emacs25 слоем.
-Нужно сделать virtualenv со старой версией python?
-https://stackoverflow.com/questions/14591579/how-to-isolate-virtualenv-from-local-dist-packages
+## host
 
-Похоже, дело не только в версии питона, а еще и в других библиотеках,
-например ssl, устанавливаемых через apt. Значит, надо запускать
-подобные слои через контейнер? но это будет docker inside docker? или podman
+gnuplot
+emacs-bin-common (for emacsclient)
+ripgrep
 
-## build
+## build base image
 
 ssh chronos
 cd ~/git/eabmisc/eab-docker-emacs
-docker build -f dockerfiles/Dockerfile.emacs28.1 -t harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.4 .
-docker push harbor.homew.keenetic.pro/eab/eab-emacs28:0.0.3
-
-docker rm eab-emacs
-/bin/bash emacs-docker.sh
-docker ps
-# docker exec -it eab-emacs asEnvUser /bin/bash
-ps aux 
-tmux
-tmux set -g status off;
-
-demacs
-tmux
-tmux set -g status off;
-
-docker stop eab-emacs
-docker rm eab-emacs
-
-
-## openvpn 
-
-sudo apt-get install openvpn
-# + cp config; mount /etc/openvpn?
-sudo apt-get install curl
-echo     ServerAliveInterval 120 >> /etc/ssh/ssh_config
-
-
-## emacs28
-
-ENV LIBRARY_PATH=/install_dir/lib
-ENV LD_LIBRARY_PATH=/install_dir/lib
-ENV PATH=/install_dir/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
-PATH=/install_dir/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
-sudo apt-get install libtinfo-dev
-sudo apt-get install ncurses-dev
-sudo apt-get install libncurses5-dev
-sudo apt-get remove libncurses5-dev
-sudo apt-get install libncursesw5-dev
-
-ldd /install_dir/bin/emacs | grep libtin
-
-ls /usr/lib/x86_64-linux-gnu/ | grep libtinf
-ls /usr/lib/x86_64-linux-gnu/ | grep libnc
-sudo ln -s /usr/lib/x86_64-linux-gnu/libncurses.so /usr/lib/x86_64-linux-gnu/libtinfo.so.6
-sudo ln -s /usr/lib/x86_64-linux-gnu/libtinfo.so.6.1 /usr/lib/x86_64-linux-gnu/libtinfo.so.6
-sudo rm -f /usr/lib/x86_64-linux-gnu/libtinfo.so.6
-
-sudo apt-get install libtinfo-dev=6.1-1ubuntu.1
-LIBRARY_PATH=/install_dir/lib LD_LIBRARY_PATH=/install_dir/lib dcemacs
-dcemacs
-
-docker stop eab-emacs28
-docker rm eab-emacs28
-
-
-
-ssh 172.17.0.3
-export LIBRARY_PATH=/install_dir/lib LD_LIBRARY_PATH=/install_dir/lib
-sudo apt-get update
-sudo apt-get install libjpeg62
-
-## DONE
-
-apt-get update
-apt-get install bc
-
-apt install cmake
-apt install build-essential
-apt install libssl-dev
-apt install ispell
-apt install xterm (for org :session)
-apt install graphviz
-
-pip3 install gitlabber
-sudo apt install ansible
-
-cat ~/.gnupg/gpg.conf
-ignore-mdc-error
-
+docker build -f dockerfiles/Dockerfile.emacs-base -t harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.1 .
+docker push harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.1
 
 <!-- dictionary -->
 apt-get install dictd
@@ -121,6 +38,8 @@ sudo /etc/init.d/dictd stop
 sudo /etc/init.d/dictd start
 
 copy ~/.eev folder
+
+copy emacs-28.1 folder
 
 rebuild emacs with librsvg2-dev
 also may be with
@@ -141,9 +60,7 @@ configure: WARNING: Your version of Gtk+ will have problems with
 [ ] libm17n-dev
 [x] libotf-dev
 
-host:
-gnuplot
-emacs-bin-common (for emacsclient)
+DONE man pages https://stackoverflow.com/questions/54152906/how-to-install-man-pages-on-an-ubuntu-docker-image
 
 CANCELLED +svg java ditaa
 wget https://github.com/stathissideris/ditaa/releases/download/v0.11.0/ditaa-0.11.0-standalone.jar
@@ -156,20 +73,5 @@ sudo EDAEMON=$EDAEMON /usr/bin/supervisord -n -c /etc/supervisord.conf &
 и, возможно, все остальные
 Дальше разбираться не стал, т.к. возможны еще другие проблемы.
 
-sudo apt install sqlite3
-sudo apt install aspell
-sudo apt install figlet
-sudo apt install aspell-ru
-sudo apt install libcanberra-gtk-module
-
-cd /usr/lib/ispell
-sudo ln -s /var/lib/ispell/american.hash english.hash
-
-## additional
-
-TODO duplicate settings cmd.sh and .bashrc
-TMPDIR, ~/.ssh/tramp, ~/git/auto
-
-TODO перекомпилировать emacs с поддержкой dbus --with-dbus
-
-TODO to stabilize current build; separated compiled emacs image
+DONE Source Code Pro fonts for emacs GUI
+https://www.rogerpence.com/posts/install-source-code-pro-font-on-ubuntu

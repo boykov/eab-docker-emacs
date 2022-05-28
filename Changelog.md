@@ -1,5 +1,16 @@
 # Changelog
 
+### 0.0.8
+
+Build `ubuntu-emacs:0.0.1` base image with
+
+* man pages fixed
+* emacs-28.1
+* dictd
+* .eev
+
+Build `eab-emacs:0.0.8` image.
+
 ### 0.0.7
 
 Add `man` pages.

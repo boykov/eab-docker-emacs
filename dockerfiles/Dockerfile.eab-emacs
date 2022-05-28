@@ -1,51 +1,7 @@
-ARG VERSION=20.04
-FROM ubuntu:$VERSION as ubuntu-emacs
-
-MAINTAINER eab <artscan@list.ru>
-
-RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
-    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
-    software-properties-common \
-    libacl1-dev \
-    librsvg2-dev \
-    imagemagick \
-    libdbus-1-dev \
-    libotf-dev \
-    libxpm-dev \
-    libgif-dev \
-    libjpeg-dev \
-    libpng-dev \
-    libtiff-dev \
-    libx11-dev \
-    libncurses5-dev \
-    automake \
-    bash \
-    make \
-    git \
-    build-essential \
-    autoconf \
-    texinfo \
-    libgtk2.0-dev \
-    && add-apt-repository ppa:ubuntu-toolchain-r/test \
-    && apt-get install \
-    gcc-10 \
-    g++-10 \
-    libgccjit0 \
-    libgccjit-10-dev \
-    libjansson4 \
-    libjansson-dev \
-    libxml2-dev \
-    libgnutls28-dev
-
-COPY emacs-28.1 /emacs
-COPY build.sh /emacs/build.sh
-RUN cd /emacs && chmod +x build.sh && sleep 1 && ./build.sh
-RUN rm -rf /emacs
-
-FROM ubuntu-emacs
+FROM harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.1
 
 # basic stuff
-RUN apt-get install \
+RUN apt-get update && apt-get install \
     supervisor \
     openssh-server \
     dbus-x11 \
@@ -90,17 +46,18 @@ RUN apt-get update && apt-get install \
     xterm \
     graphviz \
     ansible \
-    dictd \
     libtool-bin \
-    libssl-dev \
-# Cleanup
-    && apt-get purge build-essential \
-    && apt-get autoremove \
-    && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
+    ghostscript \
+    sqlite3 \
+    aspell \
+    aspell-en \
+    aspell-ru \
+    libcanberra-gtk-module \
+    libssl-dev
 
 RUN pip3 install cmake gitlabber
 
-# ripgrep
+# source-code-pro
 RUN wget https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip \
     && unzip 1.050R-it.zip \
     && cp source-code-pro-*-it/OTF/*.otf /usr/local/share/fonts/ \
@@ -108,33 +65,17 @@ RUN wget https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R
     && rm 1.050R-it.zip \
     fc-cache -f -v
 
-COPY dictd/ /usr/share/dictd/
-RUN dictdconfig -w
-RUN dict -I
-
-RUN mkdir /RNTM
+RUN mkdir -p /RNTM
 COPY gpg.conf /RNTM/gpg.conf
-COPY .eev /RNTM/.eev
 COPY browser-remote /usr/local/bin/browser-remote
 RUN chmod +x /usr/local/bin/browser-remote
 
-RUN sed -i 's:^path-exclude=/usr/share/man:#path-exclude=/usr/share/man:' \
-        /etc/dpkg/dpkg.cfg.d/excludes
-
-RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
-    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
-    man-db \
-    manpages \
-    manpages-posix \
-    apt-utils \
-    dialog \
-    ghostscript \
-    sqlite3 \
-    aspell \
-    aspell-en \
-    aspell-ru \
+RUN apt-get update && apt-get install \
     figlet \
-    libcanberra-gtk-module
+# Cleanup
+    && apt-get purge build-essential \
+    && apt-get autoremove \
+    && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN ln -s /var/lib/ispell/american.hash /var/lib/ispell/english.hash
 

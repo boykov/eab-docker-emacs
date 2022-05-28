@@ -12,11 +12,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Copy emacs-28.1 and build image
+      - name: Build eab-emacs image
         env:
-          VER: 0.0.5
+          VER: 0.0.8
         run: |
-          cp -rp ../../emacs-28.1 ./
-          cp -rp ../../dictd ./
-          cp -rp ../../.eev ./
-          docker build -f dockerfiles/Dockerfile.emacs28.1 -t harbor.homew.keenetic.pro/eab/eab-emacs28:$VER .
+          docker build -f dockerfiles/Dockerfile.eab-emacs -t harbor.homew.keenetic.pro/eab/eab-emacs:$VER .
