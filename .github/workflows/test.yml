@@ -18,4 +18,5 @@ jobs:
         run: |
           cp -rp ../../emacs-28.1 ./
           cp -rp ../../dictd ./
+          cp -rp ../../.eev ./
           docker build -f dockerfiles/Dockerfile.emacs28.1 -t harbor.homew.keenetic.pro/eab/eab-emacs28:$VER .
