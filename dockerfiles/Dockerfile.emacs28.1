@@ -82,13 +82,8 @@ RUN apt-get install \
 COPY ru_RU /usr/share/i18n/locales/ru_RU
 RUN locale-gen ru_RU && locale-gen ru_RU.UTF-8 && update-locale LANG=ru_RU.UTF-8 && dpkg-reconfigure --frontend noninteractive locales
 
-RUN sed -i 's:^path-exclude=/usr/share/man:#path-exclude=/usr/share/man:' \
-        /etc/dpkg/dpkg.cfg.d/excludes
-
 # basic stuff
 RUN apt-get update && apt-get install \
-    man \
-    manpages-posix \
     bc \
     cmake \
     ispell \
@@ -123,8 +118,16 @@ COPY .eev /RNTM/.eev
 COPY browser-remote /usr/local/bin/browser-remote
 RUN chmod +x /usr/local/bin/browser-remote
 
+RUN sed -i 's:^path-exclude=/usr/share/man:#path-exclude=/usr/share/man:' \
+        /etc/dpkg/dpkg.cfg.d/excludes
+
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
+    man-db \
+    manpages \
+    manpages-posix \
+    apt-utils \
+    dialog \
     ghostscript \
     sqlite3 \
     aspell \
