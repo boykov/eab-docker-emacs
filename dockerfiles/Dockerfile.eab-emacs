@@ -56,6 +56,7 @@ RUN apt-get update && apt-get install \
     libssl-dev
 
 RUN pip3 install cmake gitlabber
+RUN pip3 install joblib
 
 # source-code-pro
 RUN wget https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip \

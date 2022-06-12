@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.0.9
+
+Add python 3 `joblib`.
+
 ### 0.0.8
 
 Build `ubuntu-emacs:0.0.1` base image with
