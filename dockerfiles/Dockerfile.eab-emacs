@@ -73,6 +73,7 @@ RUN chmod +x /usr/local/bin/browser-remote
 
 RUN apt-get update && apt-get install \
     figlet \
+    net-tools \
 # Cleanup
     && apt-get purge build-essential \
     && apt-get autoremove \

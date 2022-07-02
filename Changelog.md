@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.0.10
+
+Add `net-tools`, update [README](README.md).
+Use symlinks in `cmd.sh`.
+
 ### 0.0.9
 
 Add python 3 `joblib`.

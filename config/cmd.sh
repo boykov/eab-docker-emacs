@@ -7,7 +7,16 @@ sudo chown -R $UNAME:$GNAME /home/$UNAME/.eev
 sudo chown -R $UNAME:$GNAME /home/$UNAME/.gnupg
 sudo chmod 0700 /home/$UNAME/.gnupg
 
-ln -s ~/pnt/pub ~/pub
+f=pub;           ln -s ~/pnt/$f ~/$f
+f=data;          ln -s ~/pnt/$f ~/$f
+f=git;           ln -s ~/pnt/$f ~/$f
+f=.emacs.d;      ln -s ~/pnt/home/$f ~/$f
+f=.ssh;          ln -s ~/pnt/home/$f ~/$f
+f=.bashrc;       ln -s ~/pnt/home/$f ~/$f
+f=.bash_history; ln -s ~/pnt/home/$f ~/$f
+f=.profile;      ln -s ~/pnt/home/$f ~/$f
+f=.authinfo;     ln -s ~/pnt/home/$f ~/$f
+f=.gitconfig;    ln -s ~/pnt/home/$f ~/$f
 
 # Start supervisord and services
 sudo /usr/bin/supervisord -n -c /etc/supervisord.conf &
