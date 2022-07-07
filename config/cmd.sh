@@ -13,7 +13,6 @@ f=git;           ln -s ~/pnt/$f ~/$f
 f=.emacs.d;      ln -s ~/pnt/home/$f ~/$f
 f=.ssh;          ln -s ~/pnt/home/$f ~/$f
 f=.bashrc;       ln -s ~/pnt/home/$f ~/$f
-f=.bash_history; ln -s ~/pnt/home/$f ~/$f
 f=.profile;      ln -s ~/pnt/home/$f ~/$f
 f=.authinfo;     ln -s ~/pnt/home/$f ~/$f
 f=.gitconfig;    ln -s ~/pnt/home/$f ~/$f
