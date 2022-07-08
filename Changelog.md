@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.0.11
+
+Use `mount --bind` in `cmd.sh`: prevent elongated `/pnt/bear/..` paths.
+Add `nfs-common`.
+
 ### 0.0.10
 
 Add `net-tools`, update [README](README.md).
