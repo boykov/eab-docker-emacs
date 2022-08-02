@@ -27,7 +27,7 @@ sudo chmod 777 /tmp/user/$UID
 export TMPDIR=/tmp/user/$UID
 . ~/.ssh/tramp
 PATH=$PATH:~/git/auto
-. ~/git/auto/.common_bash
+. ~/pnt/home/.common_bash
 
 emacs --daemon=$EDAEMON
 
