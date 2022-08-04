@@ -24,11 +24,7 @@ sudo /etc/init.d/dictd start
 sudo mkdir -p /tmp/user/$UID
 sudo chmod 777 /tmp/user/$UID
 
-export TMPDIR=/tmp/user/$UID
-. ~/.ssh/tramp
-PATH=$PATH:~/git/auto
 . ~/pnt/home/.common_bash
-
 emacs --daemon=$EDAEMON
 
 sleep infinity
