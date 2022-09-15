@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.0.12
+
+Fix duplicate `cmd.sh/.bashrc` settings.
+
 ### 0.0.11
 
 Use `mount --bind` in `cmd.sh`: prevent elongated `/pnt/bear/..` paths.

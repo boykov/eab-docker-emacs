@@ -8,7 +8,7 @@ See `.github/workflows/test.yml`
 
 ## additional
 
-- [ ] duplicate settings in `cmd.sh` and `.bashrc`:
+- [x] duplicate settings in `cmd.sh` and `.bashrc`:
   - `TMPDIR`, `~/.ssh/tramp`, `~/git/auto`
 
 ## host
