@@ -25,6 +25,11 @@ sudo mkdir -p /tmp/user/$UID
 sudo chmod 777 /tmp/user/$UID
 
 . ~/pnt/home/.common_bash
+rm -f ~/.emacs.d/server/$EDAEMON
 emacs --daemon=$EDAEMON
+if [ -s "/home/eab/.emacs.d/server/$EDAEMON" ]; then
+sed -i "s/127.0.0.1/192.168.2.18/" ~/.emacs.d/server/$EDAEMON
+bash -c "socat TCP4-LISTEN:5002,fork TCP4:127.0.0.1:5001" &
+fi
 
 sleep infinity

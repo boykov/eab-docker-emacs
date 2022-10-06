@@ -75,6 +75,7 @@ RUN apt-get update && apt-get install \
     figlet \
     net-tools \
     nfs-common \
+    socat \
 # Cleanup
     && apt-get purge build-essential \
     && apt-get autoremove \

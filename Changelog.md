@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.0.13
+
+Add `socat`. Setup tcp socket for `serverC`.
+
 ### 0.0.12
 
 Fix duplicate `cmd.sh/.bashrc` settings.
