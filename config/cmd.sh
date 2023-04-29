@@ -28,7 +28,15 @@ sudo chmod 777 /tmp/user/$UID
 rm -f ~/.emacs.d/server/$EDAEMON
 emacs --daemon=$EDAEMON
 if [ -s "/home/eab/.emacs.d/server/$EDAEMON" ]; then
-sed -i "s/127.0.0.1/192.168.2.18/" ~/.emacs.d/server/$EDAEMON
+    if [ "$EDAEMON" = "cyclos" ]; then
+        sed -i "s/127.0.0.1:5001/172.16.82.5:5001/" ~/.emacs.d/server/$EDAEMON
+    fi
+    if [ "$EDAEMON" = "serverC" ]; then
+        sed -i "s/127.0.0.1:5001/172.16.82.3:5001/" ~/.emacs.d/server/$EDAEMON
+    fi
+    if [ "$EDAEMON" = "serverP" ]; then
+        sed -i "s/127.0.0.1:5001/172.16.82.3:5003/" ~/.emacs.d/server/$EDAEMON
+    fi
 bash -c "socat TCP4-LISTEN:5002,fork TCP4:127.0.0.1:5001" &
 fi
 

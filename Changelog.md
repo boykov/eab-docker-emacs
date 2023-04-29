@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.0.14
+
+Setup tcp socket for `serverP`, `cyclos`.
+Emacs `build.sh`: use auto `cores`.
+Update to emacs `29.0.91`, add readme commands.
+
 ### 0.0.13
 
 Add `socat`. Setup tcp socket for `serverC`.
