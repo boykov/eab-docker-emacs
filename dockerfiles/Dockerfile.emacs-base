@@ -1,4 +1,4 @@
-ARG UBUNTU_VERSION=20.04
+ARG UBUNTU_VERSION=22.04
 FROM ubuntu:$UBUNTU_VERSION
 ARG EMACS_VERSION=28.1
 MAINTAINER eab <artscan@list.ru>
@@ -44,6 +44,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     libjansson4 \
     libjansson-dev \
     libxml2-dev \
+    libtree-sitter-dev \
     libgnutls28-dev
 
 COPY emacs-${EMACS_VERSION} /emacs

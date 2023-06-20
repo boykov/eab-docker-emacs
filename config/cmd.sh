@@ -34,6 +34,9 @@ if [ -s "/home/eab/.emacs.d/server/$EDAEMON" ]; then
     if [ "$EDAEMON" = "serverC" ]; then
         sed -i "s/127.0.0.1:5001/172.16.82.3:5001/" ~/.emacs.d/server/$EDAEMON
     fi
+    if [ "$EDAEMON" = "kairosC" ]; then
+        sed -i "s/127.0.0.1:5001/192.168.2.19:5001/" ~/.emacs.d/server/$EDAEMON
+    fi
     if [ "$EDAEMON" = "serverP" ]; then
         sed -i "s/127.0.0.1:5001/172.16.82.3:5003/" ~/.emacs.d/server/$EDAEMON
     fi

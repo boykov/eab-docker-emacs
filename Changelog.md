@@ -1,5 +1,13 @@
 # Changelog
 
+### 0.0.15
+
+Add `tree-sitter`.
+Update ubuntu version to `22.04`.
+Switch to `podman build` and `29.0.92`.
+Add `kairosC`, dockerize `clocksum` fully.
+Fix `python3` packages, add `gnuplot`.
+
 ### 0.0.14
 
 Setup tcp socket for `serverP`, `cyclos`.
