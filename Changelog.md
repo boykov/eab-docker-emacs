@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.0.16
+
+Use `wg` hosts for all daemons.
+Update to emacs `29.1`.
+Disable github workflow.
+
 ### 0.0.15
 
 Add `tree-sitter`.

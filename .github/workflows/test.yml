@@ -3,7 +3,6 @@ name: Greeting from Github
 on:
   push:
     branches:
-      - dev
 
 jobs:
   eab-job:

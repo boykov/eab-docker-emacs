@@ -25,16 +25,16 @@ See `.github/workflows/test.yml`
                  -t harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.1 .
     docker push harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.1
 
-    wget https://alpha.gnu.org/gnu/emacs/pretest/emacs-29.0.92.tar.xz
+    wget http://mirror.tochlab.net/pub/gnu/emacs/emacs-29.1.tar.gz
     docker cp eab-emacs28:/usr/share/dictd ./
     docker cp eab-emacs28:/RNTM/.eev ./
-    sudo podman build --build-arg EMACS_VERSION=29.0.92 -f dockerfiles/Dockerfile.emacs-base \
-                 -t harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.3n .
-    sudo podman push harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.3n
+    sudo podman build --build-arg EMACS_VERSION=29.1 -f dockerfiles/Dockerfile.emacs-base \
+                 -t harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.4 .
+    sudo podman push harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.4
 
-    sed -i "s/0.0.3/0.0.3n/" dockerfiles/Dockerfile.eab-emacs
-    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t harbor.homew.keenetic.pro/eab/eab-emacs:0.0.15n .
-    sudo podman push harbor.homew.keenetic.pro/eab/eab-emacs:0.0.15n
+    sed -i "s/0.0.4/0.0.4n/" dockerfiles/Dockerfile.eab-emacs
+    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t harbor.homew.keenetic.pro/eab/eab-emacs:0.0.16n .
+    sudo podman push harbor.homew.keenetic.pro/eab/eab-emacs:0.0.16n
 
     docker build --build-arg EMACS_VERSION=29.0.91 -f dockerfiles/Dockerfile.emacs-base \
                  -t harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.2n .
