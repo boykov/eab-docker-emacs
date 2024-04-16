@@ -36,6 +36,8 @@ See `.github/workflows/test.yml`
     sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t harbor.homew.keenetic.pro/eab/eab-emacs:0.0.16n .
     sudo podman push harbor.homew.keenetic.pro/eab/eab-emacs:0.0.16n
 
+    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t harbor.homew.keenetic.pro/eab/eab-emacs:0.0.16 .
+
     docker build --build-arg EMACS_VERSION=29.0.91 -f dockerfiles/Dockerfile.emacs-base \
                  -t harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.2n .
     sed -i "s/0.0.1/0.0.2n/" dockerfiles/Dockerfile.eab-emacs

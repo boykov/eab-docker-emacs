@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.0.16.1
+
+Fix missed `gitlabber`.
+Add `chronosP`.
+
 ### 0.0.16
 
 Use `wg` hosts for all daemons.

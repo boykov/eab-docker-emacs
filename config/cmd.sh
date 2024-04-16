@@ -40,6 +40,9 @@ if [ -s "/home/eab/.emacs.d/server/$EDAEMON" ]; then
     if [ "$EDAEMON" = "serverP" ]; then
         sed -i "s/127.0.0.1:5001/172.16.82.6:5003/" ~/.emacs.d/server/$EDAEMON
     fi
+    if [ "$EDAEMON" = "chronosP" ]; then
+        sed -i "s/127.0.0.1:5001/172.16.82.3:5003/" ~/.emacs.d/server/$EDAEMON
+    fi
 bash -c "socat TCP4-LISTEN:5002,fork TCP4:127.0.0.1:5001" &
 fi
 

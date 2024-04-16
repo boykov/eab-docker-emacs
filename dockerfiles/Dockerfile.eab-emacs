@@ -58,7 +58,7 @@ RUN apt-get update && apt-get install \
     gnuplot \
     libssl-dev
 
-RUN pip3 install cmake gitlabber
+RUN pip3 install cmake
 RUN pip3 install joblib
 
 # source-code-pro
