@@ -16,4 +16,4 @@ jobs:
         env:
           VER: 0.0.15
         run: |
-          docker build -f dockerfiles/Dockerfile.eab-emacs -t harbor.homew.keenetic.pro/eab/eab-emacs:$VER .
+          docker build -f dockerfiles/Dockerfile.eab-emacs -t harbor.0508cd55.nip.io/eab/eab-emacs:$VER .

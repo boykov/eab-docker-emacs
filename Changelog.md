@@ -4,6 +4,8 @@
 
 Fix missed `gitlabber`.
 Add `chronosP`.
+Mount `~/git/org[-chronos]` from `~/pnt/jaguar/git/org[-chronos]`.
+Use `0508cd55.nip.io`.
 
 ### 0.0.16
 

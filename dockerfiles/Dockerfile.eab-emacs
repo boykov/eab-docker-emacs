@@ -1,4 +1,4 @@
-FROM harbor.homew.keenetic.pro/eab/ubuntu-emacs:0.0.4
+FROM harbor.0508cd55.nip.io/eab/ubuntu-emacs:0.0.4
 
 # basic stuff
 RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \

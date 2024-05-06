@@ -9,6 +9,8 @@ sudo chmod 0700 /home/$UNAME/.gnupg
 
 f=pub;           ln -s ~/pnt/$f ~/$f
 f=git;  mkdir ~/$f; sudo mount --bind ~/pnt/$f ~/$f
+sudo mount --bind ~/pnt/jaguar/git/org ~/git/org
+sudo mount --bind ~/pnt/jaguar/git/org-chronos ~/git/org-chronos
 f=data; mkdir ~/$f; sudo mount --bind ~/pnt/$f ~/$f
 f=.ssh; mkdir ~/$f; sudo mount --bind ~/pnt/home/$f ~/$f
 f=.emacs.d;      ln -s ~/pnt/home/$f ~/$f
