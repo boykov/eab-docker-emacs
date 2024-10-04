@@ -25,25 +25,26 @@ sudo /etc/init.d/dictd start
 
 sudo mkdir -p /tmp/user/$UID
 sudo chmod 777 /tmp/user/$UID
+sudo chown $UID:$UID /tmp/user/$UID
 
 . ~/pnt/home/.common_bash
 rm -f ~/.emacs.d/server/$EDAEMON
 emacs --daemon=$EDAEMON
 if [ -s "/home/eab/.emacs.d/server/$EDAEMON" ]; then
     if [ "$EDAEMON" = "cyclos" ]; then
-        sed -i "s/127.0.0.1:5001/172.16.82.5:5001/" ~/.emacs.d/server/$EDAEMON
+        sed -i "s/127.0.0.1:5001/172.27.230.103:5001/" ~/.emacs.d/server/$EDAEMON
     fi
     if [ "$EDAEMON" = "serverC" ]; then
-        sed -i "s/127.0.0.1:5001/172.16.82.3:5001/" ~/.emacs.d/server/$EDAEMON
+        sed -i "s/127.0.0.1:5001/172.27.170.71:5001/" ~/.emacs.d/server/$EDAEMON
     fi
     if [ "$EDAEMON" = "kairosC" ]; then
-        sed -i "s/127.0.0.1:5001/172.16.82.6:5001/" ~/.emacs.d/server/$EDAEMON
+        sed -i "s/127.0.0.1:5001/172.27.58.58:5001/" ~/.emacs.d/server/$EDAEMON
     fi
     if [ "$EDAEMON" = "serverP" ]; then
-        sed -i "s/127.0.0.1:5001/172.16.82.6:5003/" ~/.emacs.d/server/$EDAEMON
+        sed -i "s/127.0.0.1:5001/172.27.58.58:5003/" ~/.emacs.d/server/$EDAEMON
     fi
     if [ "$EDAEMON" = "chronosP" ]; then
-        sed -i "s/127.0.0.1:5001/172.16.82.3:5003/" ~/.emacs.d/server/$EDAEMON
+        sed -i "s/127.0.0.1:5001/172.27.170.71:5003/" ~/.emacs.d/server/$EDAEMON
     fi
 bash -c "socat TCP4-LISTEN:5002,fork TCP4:127.0.0.1:5001" &
 fi

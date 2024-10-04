@@ -1,11 +1,18 @@
 # Changelog
 
+### 0.0.16.1(3)
+
+Use zerotier IPs. Fix `/tmp/user/1000`.
+0508cd55 -> eab.su
+
 ### 0.0.16.1
 
 Fix missed `gitlabber`.
 Add `chronosP`.
 Mount `~/git/org[-chronos]` from `~/pnt/jaguar/git/org[-chronos]`.
 Use `0508cd55.nip.io`.
+Use zerotier IPs.
+Fix `/tmp/user/$UID` permissions.
 
 ### 0.0.16
 
