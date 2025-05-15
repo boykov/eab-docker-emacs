@@ -22,18 +22,20 @@ See `.github/workflows/test.yml`
     ssh chronos
     cd ~/git/eabmisc/eab-docker-emacs
 
-    wget http://mirror.tochlab.net/pub/gnu/emacs/emacs-29.1.tar.gz
+    wget http://mirror.tochlab.net/pub/gnu/emacs/emacs-30.1.tar.gz
+    tar xf emacs-30.1.tar.xz
     docker cp eab-emacs28:/usr/share/dictd ./
     docker cp eab-emacs28:/RNTM/.eev ./
-    sudo podman build --build-arg EMACS_VERSION=29.1 -f dockerfiles/Dockerfile.emacs-base \
-                 -t hub.eab.su/lib/ubuntu-emacs:0.0.4 .
-    sudo podman push hub.eab.su/lib/ubuntu-emacs:0.0.4
+    sudo podman build --build-arg EMACS_VERSION=30.1 -f dockerfiles/Dockerfile.emacs-base \
+                 -t hub.eab.su/lib/ubuntu-emacs:0.0.5k .
+    sudo podman push hub.eab.su/lib/ubuntu-emacs:0.0.5k
 
-    sed -i "s/0.0.4/0.0.4n/" dockerfiles/Dockerfile.eab-emacs
-    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t hub.eab.su/utils/emacs:0.0.16n .
-    sudo podman push hub.eab.su/utils/emacs:0.0.16n
+    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t hub.eab.su/utils/emacs:0.1.1 .
+    sudo podman push hub.eab.su/lib/emacs:0.1.1
 
-    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t hub.eab.su/utils/emacs:0.0.16 .
+    sed -i "s/0.0.5/0.0.5k/" dockerfiles/Dockerfile.eab-emacs
+    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t hub.eab.su/lib/emacs:0.1.1k .
+    sudo podman push hub.eab.su/lib/emacs:0.1.1k
 
 <!-- dictionary -->
 

@@ -1,4 +1,4 @@
-FROM hub.eab.su/lib/ubuntu-emacs:0.0.4
+FROM hub.eab.su/lib/ubuntu-emacs:0.0.5
 
 # basic stuff
 RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
