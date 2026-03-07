@@ -1,0 +1,29 @@
+ARG UBUNTU_VERSION=22.04
+FROM ubuntu:$UBUNTU_VERSION
+MAINTAINER eab <artscan@list.ru>
+
+RUN apt update \
+    && apt --yes upgrade \
+    && sed -e '\|/usr/share/man|s|^#*|#|g' -i /etc/dpkg/dpkg.cfg.d/excludes \
+    && apt-get install --reinstall $(dpkg -S /usr/share/ | sed 's/,//g' | sed 's/: \/usr\/share//g') \
+    && apt --yes install apt-utils dialog manpages manpages-posix man-db \
+    && rm -f /usr/bin/man \
+    && dpkg-divert --quiet --remove --rename /usr/bin/man
+
+RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+    && apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-numpy \
+    python3-scipy \
+    python3-gi
+
+COPY eaf /tmp/eaf
+RUN cd /tmp/eaf && chmod +x install-eaf.py && ./install-eaf.py --install-core-deps --install browser
+
+RUN pip3 install PyMuPDF
+RUN pip3 install frontend
+RUN pip3 install pycookiecheat
+RUN pip3 install cmake
+RUN pip3 install joblib

@@ -74,11 +74,23 @@ COPY gpg.conf /RNTM/gpg.conf
 COPY browser-remote /usr/local/bin/browser-remote
 RUN chmod +x /usr/local/bin/browser-remote
 
+
+COPY eaf /tmp/eaf
+RUN cd /tmp/eaf && chmod +x install-eaf.py && ./install-eaf.py --install-core-deps --install browser
+
+RUN pip3 install PyMuPDF
+RUN pip3 install frontend
+RUN pip3 install pycookiecheat
+
 RUN apt-get update && apt-get install \
     figlet \
     net-tools \
     nfs-common \
     socat \
+    libnss3 \
+    libsecret-1-dev \
+    libsqlite3-dev \
+    python3-gi \
 # Cleanup
     && apt-get purge build-essential \
     && apt-get autoremove \

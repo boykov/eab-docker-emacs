@@ -7,6 +7,12 @@ sudo chown -R $UNAME:$GNAME /home/$UNAME/.eev
 sudo chown -R $UNAME:$GNAME /home/$UNAME/.gnupg
 sudo chmod 0700 /home/$UNAME/.gnupg
 
+if sudo [ -d "/root/.local" ]; then
+    # cp root pip to user pip (emacs eaf)
+    sudo mv /root/.local /home/$UNAME/
+    sudo chown -R $UNAME:$UNAME /home/$UNAME/.local
+fi
+
 f=pub;           ln -s ~/pnt/$f ~/$f
 f=git;  mkdir ~/$f; sudo mount --bind ~/pnt/$f ~/$f
 sudo mount --bind ~/pnt/jaguar/git/org ~/git/org

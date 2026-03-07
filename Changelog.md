@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.2
+
+Add EAF support to Dockerfile.
+Fix eaf chrome cookie.
+Fix pip `/root/.local` vs `~/.local`.
+Init `Dockerfile.eab-extra`.
+
+Added EAF (Emacs Application Framework) support by copying the EAF
+directory and installing core dependencies. Also updated the version
+number in the Docker build process.
+
 ## 0.1.1
 
 Prepare 30.1
