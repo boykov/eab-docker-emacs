@@ -1,4 +1,4 @@
-FROM hub.eab.su/lib/ubuntu-emacs:0.0.5
+FROM hub.eab.su/lib/ubuntu-emacs:0.0.6
 
 # basic stuff
 RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
@@ -30,7 +30,7 @@ RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install \
     && chmod 770 su-exec \
     && mv ./su-exec /usr/local/sbin/ \
 # git-wip
-    && git clone https://github.com/bartman/git-wip.git && cp git-wip/git-wip /usr/bin \
+    && git clone https://github.com/bartman/git-wip.git && cp git-wip/Attic/git-wip /usr/bin \
 # ripgrep
     && wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz \
     && tar -xvf ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz && cp -f ripgrep-13.0.0-x86_64-unknown-linux-musl/rg /usr/bin
@@ -91,6 +91,14 @@ RUN apt-get update && apt-get install \
     libsecret-1-dev \
     libsqlite3-dev \
     python3-gi \
+    fonts-noto-color-emoji \
+    shfmt \
+    csvkit \
+    && wget -O /tmp/pandoc-3.11-1-amd64.deb \
+    https://github.com/jgm/pandoc/releases/download/3.11/pandoc-3.11-1-amd64.deb \
+    && dpkg -i /tmp/pandoc-3.11-1-amd64.deb \
+    && curl -sL https://github.com/hledgerorg/hledger/releases/download/1.50/hledger-linux-x64.tar.gz \
+    | tar -xzv -f- -C/usr/local/bin hledger hledger-ui hledger-web \
 # Cleanup
     && apt-get purge build-essential \
     && apt-get autoremove \

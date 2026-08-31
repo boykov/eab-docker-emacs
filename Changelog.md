@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.2
+
+feat(config): update Emacs version to 31.1 and bump container tags
+
+- Update README examples to use emacs-31.1 instead of 30.1
+- Bump base image tag from 0.0.5 to 0.0.6 and main image to 0.2.2
+- Fix .gitignore to ignore all emacs-*.1 releases generically
+- Update git-wip path to use Attic subdirectory
+- Add new packages (fonts-noto-color-emoji, shfmt, csvkit, pandoc, hledger suite)
+- Correct EDAEMON name in cmd.sh from "serverP" to "kairosP"
+
 ## 0.1.2
 
 Add EAF support to Dockerfile.
