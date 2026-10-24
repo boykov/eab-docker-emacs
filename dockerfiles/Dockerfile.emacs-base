@@ -1,6 +1,7 @@
 ARG UBUNTU_VERSION=22.04
 FROM ubuntu:$UBUNTU_VERSION
 ARG EMACS_VERSION=29.1
+ARG TOOLKIT=
 MAINTAINER eab <artscan@list.ru>
 
 RUN apt update \
@@ -34,7 +35,8 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     autoconf \
     dictd \
     texinfo \
-    libgtk2.0-dev \
+    libgtk-3-dev \
+    libxaw7-dev \
     && add-apt-repository ppa:ubuntu-toolchain-r/test \
     && apt-get install \
     gcc-10 \
@@ -49,7 +51,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
 
 COPY emacs-${EMACS_VERSION} /emacs
 COPY build.sh /emacs/build.sh
-RUN cd /emacs && chmod +x build.sh && sleep 1 && ./build.sh
+RUN cd /emacs && chmod +x build.sh && sleep 1 && ./build.sh $TOOLKIT
 RUN rm -rf /emacs
 
 COPY dictd/ /usr/share/dictd/

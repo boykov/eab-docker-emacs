@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.4 0.3.1
+
+chore: update to Emacs 31.1, add Lucid toolkit support, bump versions
+
+- Update Emacs to version 31.1 and adjust base image references to 0.0.7n
+- Add Lucid toolkit build option via TOOLKIT arg for X11 support
+- Include necessary X11/GTK dependencies and additional tools (rsync,
+  md5deep, fonts-symbola)
+- Bump eab-emacs version to 0.3.1 (non-named) and 0.2.4n (Lucid-enabled)
+- Update changelog and README with new build commands and toolkit notes
+
 ## 0.2.2
 
 feat(config): update Emacs version to 31.1 and bump container tags

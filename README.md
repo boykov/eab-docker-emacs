@@ -26,15 +26,21 @@ See `.github/workflows/test.yml`
     tar xf emacs-31.1.tar.gz
     docker cp eab-emacs28:/usr/share/dictd ./
     docker cp eab-emacs28:/RNTM/.eev ./
-    sudo podman build --build-arg EMACS_VERSION=31.1 -f dockerfiles/Dockerfile.emacs-base \
-                 -t hub.eab.su/lib/ubuntu-emacs:0.0.6 .
-    sudo podman push hub.eab.su/lib/ubuntu-emacs:0.0.6
 
-    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t hub.eab.su/lib/emacs:0.2.1 .
+    sudo podman build --build-arg EMACS_VERSION=31.1 -f dockerfiles/Dockerfile.emacs-base \
+                 --build-arg TOOLKIT=--with-x-toolkit=lucid
+                 -t hub.eab.su/lib/ubuntu-emacs:0.1.1 .
+    sudo podman push hub.eab.su/lib/ubuntu-emacs:0.0.6
+    sudo podman build --build-arg EMACS_VERSION=31.1 -f dockerfiles/Dockerfile.emacs-base \
+                 --build-arg TOOLKIT= \
+                 -t hub.eab.su/lib/ubuntu-emacs:0.0.7n .
+    sudo podman push hub.eab.su/lib/ubuntu-emacs:0.0.6n
+
+    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t hub.eab.su/lib/emacs:0.3.1 .
     sudo podman push hub.eab.su/lib/emacs:0.2.1
 
-    sed -i "s/0.0.6/0.0.6n/" dockerfiles/Dockerfile.eab-emacs
-    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t hub.eab.su/lib/emacs:0.2.2n .
+    sed -i "s/0.1.1/0.0.7n/" dockerfiles/Dockerfile.eab-emacs
+    sudo podman build -f dockerfiles/Dockerfile.eab-emacs -t hub.eab.su/lib/emacs:0.2.4n .
     sudo podman push hub.eab.su/lib/emacs:0.2.1n
 
     sudo podman build -f dockerfiles/Dockerfile.eab-extra \
@@ -58,7 +64,8 @@ rebuild emacs with librsvg2-dev (also may be with)
 
 - [x] libacl1-dev
 - [x] libncurses-dev
-- [ ] libgtk-3-dev
+- [x] libgtk-3-dev
+  - it doesn't fix the bug, lucid does
   - configure: WARNING: Your version of Gtk+ will have problems with
     closing open displays.  This is no problem if you just use one
     display, but if you use more than one and close one of them Emacs
